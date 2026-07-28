@@ -77,42 +77,39 @@ function KolamThread({ color }) {
 }
 
 function KolamDiamond({ size = 72, color = "#E8C878" }) {
-  // 5×5 dot grid kolam with traditional curved loop connectors
-  const s = 11; // dot spacing
-  const dots = [];
-  for (let r = 0; r < 5; r++)
-    for (let c = 0; c < 5; c++)
-      dots.push({ x: (c - 2) * s, y: (r - 2) * s, i: r * 5 + c });
-
+  // Traditional interlocked-loop kolam — 3×3 dot grid with figure-8 loops
+  // modelled on the classic pulli kolam style in the reference image
+  const dotPositions = [
+    [-18,-18],[ 0,-18],[18,-18],
+    [-18,  0],[ 0,  0],[18,  0],
+    [-18, 18],[ 0, 18],[18, 18],
+  ];
   return (
-    <svg width={size} height={size} viewBox="-30 -30 60 60" style={{ overflow: "visible" }}>
-      {/* curved loop connectors between adjacent dots */}
+    <svg width={size} height={size} viewBox="-32 -32 64 64" style={{ overflow: "visible" }}>
+      {/* outer interlocked loops — horizontal figure-8s */}
       <motion.path
-        d="M-22,-22 Q0,-30 22,-22 Q30,0 22,22 Q0,30 -22,22 Q-30,0 -22,-22 Z"
-        fill="none" stroke={color} strokeWidth="0.7" opacity="0.45"
-        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ duration: 1.6, delay: 0.2, ease: "easeInOut" }} />
+        d="M-18,0 C-18,-12 -6,-12 0,-6 C6,-12 18,-12 18,0 C18,12 6,12 0,6 C-6,12 -18,12 -18,0 Z"
+        fill="none" stroke={color} strokeWidth="1.2"
+        initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 0.9 }}
+        transition={{ duration: 1.4, delay: 0.2, ease: "easeInOut" }} />
+      {/* vertical figure-8 loops */}
       <motion.path
-        d="M-11,-22 Q0,-26 11,-22 M22,-11 Q26,0 22,11 M11,22 Q0,26 -11,22 M-22,11 Q-26,0 -22,-11"
-        fill="none" stroke={color} strokeWidth="0.6" opacity="0.35"
-        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        d="M0,-18 C12,-18 12,-6 6,0 C12,6 12,18 0,18 C-12,18 -12,6 -6,0 C-12,-6 -12,-18 0,-18 Z"
+        fill="none" stroke={color} strokeWidth="1.2"
+        initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 0.9 }}
         transition={{ duration: 1.4, delay: 0.5, ease: "easeInOut" }} />
-      {/* inner diamond */}
+      {/* small petal loops at cardinal points */}
       <motion.path
-        d="M0,-15 L15,0 L0,15 L-15,0 Z"
-        fill="none" stroke={color} strokeWidth="0.7" opacity="0.5"
-        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ duration: 1.2, delay: 0.7, ease: "easeInOut" }} />
-      {/* dots */}
-      {dots.map(({ x, y, i }) => (
-        <motion.circle key={i} cx={x} cy={y} r={1.5} fill={color}
-          initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 0.85, scale: 1 }}
-          transition={{ duration: 0.4, delay: 0.1 + i * 0.025 }} />
+        d="M0,-24 C4,-20 4,-16 0,-14 C-4,-16 -4,-20 0,-24 Z M24,0 C20,4 16,4 14,0 C16,-4 20,-4 24,0 Z M0,24 C4,20 4,16 0,14 C-4,16 -4,20 0,24 Z M-24,0 C-20,4 -16,4 -14,0 C-16,-4 -20,-4 -24,0 Z"
+        fill={color} opacity="0.7"
+        initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 0.7, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.9 }} />
+      {/* 3×3 pulli dots */}
+      {dotPositions.map(([x, y], i) => (
+        <motion.circle key={i} cx={x} cy={y} r={i === 4 ? 2.8 : 2} fill={color}
+          initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.35, delay: 0.05 + i * 0.06 }} />
       ))}
-      {/* centre dot accent */}
-      <motion.circle cx={0} cy={0} r={2.5} fill={color}
-        initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.8 }} />
     </svg>
   );
 }
@@ -155,6 +152,7 @@ function MarigoldToran({ height = 64, count = 9 }) {
 function Envelope({ onOpen }) {
   const [opened, setOpened] = useState(false);
   const handleTap = () => { setOpened(true); setTimeout(onOpen, 1400); };
+  const W = 160, H = 110;
   return (
     <motion.div
       onClick={handleTap}
@@ -168,26 +166,35 @@ function Envelope({ onOpen }) {
       }}
     >
       <motion.div
-        animate={opened ? { y: -30, scale: 0.9, opacity: 0 } : { y: [0, -8, 0] }}
+        animate={opened ? { y: -40, scale: 0.9, opacity: 0 } : { y: [0, -8, 0] }}
         transition={opened ? { duration: 1 } : { duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-        style={{
-          width: 140, height: 100, borderRadius: 6,
-          background: "linear-gradient(135deg, #FBF3E7, #E8C878)",
-          position: "relative", boxShadow: "0 12px 40px rgba(0,0,0,0.4)",
-        }}
+        style={{ position: "relative", width: W, height: H }}
       >
-        <div style={{
-          position: "absolute", top: -14, left: "50%", transform: "translateX(-50%)",
-          width: 46, height: 46, borderRadius: "50%",
-          background: "radial-gradient(circle at 35% 30%, #C9942A, #8a6316)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontWeight: 600,
-          color: "#FBF3E7", fontSize: 15, letterSpacing: 1,
-          border: "2px solid #FBF3E7",
-        }}>J &amp; P</div>
+        <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} style={{ position: "absolute", inset: 0 }}>
+          {/* envelope body */}
+          <rect x={0} y={0} width={W} height={H} rx={4} ry={4}
+            fill="#F5ECD7" stroke="#C9942A" strokeWidth={1.2} />
+          {/* bottom-left triangle flap */}
+          <polygon points={`0,${H} ${W/2},${H*0.55} ${W},${H}`}
+            fill="#EDE0C4" stroke="#C9942A" strokeWidth={0.8} />
+          {/* left side flap */}
+          <polygon points={`0,0 0,${H} ${W/2},${H*0.55}`}
+            fill="#EAD9BE" stroke="#C9942A" strokeWidth={0.8} />
+          {/* right side flap */}
+          <polygon points={`${W},0 ${W},${H} ${W/2},${H*0.55}`}
+            fill="#EAD9BE" stroke="#C9942A" strokeWidth={0.8} />
+          {/* top flap — folded down (closed) */}
+          <polygon points={`0,0 ${W},0 ${W/2},${H*0.48}`}
+            fill="#F0E4CC" stroke="#C9942A" strokeWidth={0.8} />
+          {/* wax seal dot — plain circle in centre of top flap */}
+          <circle cx={W/2} cy={H*0.22} r={10}
+            fill="#A0352A" stroke="#D4A07A" strokeWidth={1.2} />
+          <circle cx={W/2} cy={H*0.22} r={5.5}
+            fill="none" stroke="#D4A07A" strokeWidth={0.7} opacity={0.7} />
+        </svg>
       </motion.div>
       <p style={{
-        marginTop: 34, fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic",
+        marginTop: 28, fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic",
         color: "#E8C878", fontSize: 17, letterSpacing: 2, fontWeight: 400,
       }}>tap to open our invitation</p>
     </motion.div>
