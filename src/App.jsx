@@ -438,12 +438,10 @@ export default function WeddingInvite() {
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%", display: "block" }}
             />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(58,15,36,0) 50%, rgba(58,15,36,1) 100%)" }} />
+          </div>
+          <div style={{ textAlign: "right", paddingRight: 12, marginTop: 4 }}>
             <a href="https://www.instagram.com/priyam_vardhini" target="_blank" rel="noreferrer"
-              style={{
-                position: "absolute", bottom: 8, right: 10,
-                fontFamily: "'Poppins', sans-serif", fontSize: 10, color: "rgba(255,255,255,0.6)",
-                textDecoration: "none", letterSpacing: 0.5,
-              }}>
+              style={{ fontFamily: "'Poppins', sans-serif", fontSize: 10, color: "rgba(232,200,120,0.6)", textDecoration: "none", letterSpacing: 0.5 }}>
               art: @priyam_vardhini
             </a>
           </div>
