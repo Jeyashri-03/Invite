@@ -181,13 +181,14 @@ function Envelope({ onOpen }) {
           width: 46, height: 46, borderRadius: "50%",
           background: "radial-gradient(circle at 35% 30%, #C9942A, #8a6316)",
           display: "flex", alignItems: "center", justifyContent: "center",
-          fontFamily: "'Great Vibes', cursive", color: "#FBF3E7", fontSize: 20,
+          fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontWeight: 600,
+          color: "#FBF3E7", fontSize: 15, letterSpacing: 1,
           border: "2px solid #FBF3E7",
-        }}>J&amp;P</div>
+        }}>J &amp; P</div>
       </motion.div>
       <p style={{
         marginTop: 34, fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic",
-        color: "#E8C878", fontSize: 16, letterSpacing: 1,
+        color: "#E8C878", fontSize: 17, letterSpacing: 2, fontWeight: 400,
       }}>tap to open our invitation</p>
     </motion.div>
   );
