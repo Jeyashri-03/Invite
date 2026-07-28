@@ -522,6 +522,12 @@ export default function WeddingInvite() {
               style={{ width: "100%", height: "auto", display: "block" }}
             />
           </motion.div>
+          <div style={{ textAlign: "right", width: "82%", maxWidth: 320, margin: "4px auto 0" }}>
+            <a href="https://www.instagram.com/designed_ly" target="_blank" rel="noreferrer"
+              style={{ fontFamily: "'Poppins', sans-serif", fontSize: 10, color: "rgba(184,134,11,0.6)", textDecoration: "none", letterSpacing: 0.5 }}>
+              pic courtesy: @designed_ly
+            </a>
+          </div>
         </section>
 
         {/* TIMELINE / EVENTS */}
