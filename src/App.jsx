@@ -509,7 +509,7 @@ export default function WeddingInvite() {
 
         {/* FOOTER — RSVP + general */}
         <section style={{ padding: "50px 24px 70px", textAlign: "center", background: "#1F0A14", color: "#E8C878" }}>
-          <div style={{ fontFamily: "'Great Vibes', cursive", fontSize: 32 }}>Jeyashri &amp; Praveen</div>
+          <div style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontWeight: 400, fontSize: 34, letterSpacing: 2 }}>Jeyashri &amp; Praveen</div>
           <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 14, marginTop: 8, color: "#c9a878" }}>
             with love, from an office desk to a shared home
           </p>
