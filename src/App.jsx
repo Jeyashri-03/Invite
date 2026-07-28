@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { Heart, MapPin, Clock, Calendar, Volume2, VolumeX, ChevronLeft, ChevronRight } from "lucide-react";
-import weddingMusic from "./assets/wedding-music.mp3";
+// Set to "/wedding-music.mp3" after adding the file to the public/ folder
+const MUSIC_SRC = null;
 
 const FONT_IMPORT = `
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap');
@@ -388,7 +389,7 @@ export default function WeddingInvite() {
   return (
     <div style={{ fontFamily: "'Poppins', sans-serif", position: "relative" }}>
       <style>{FONT_IMPORT}</style>
-      <audio ref={audioRef} src={weddingMusic} loop preload="auto" />
+      {MUSIC_SRC && <audio ref={audioRef} src={MUSIC_SRC} loop preload="auto" />}
       <AnimatePresence>{!invited && <Envelope onOpen={() => setInvited(true)} />}</AnimatePresence>
 
       <motion.div style={{
