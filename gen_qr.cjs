@@ -2,7 +2,8 @@ const QRCode = require('qrcode');
 const fs = require('fs');
 
 async function main() {
-  const trichyUrl = "https://maps.google.com/?q=Srilakshmi+Mahal+Trichy";
+  // Srilakshmi Mahal on Dindigul Road, Trichy — specific coordinates
+  const trichyUrl = "https://maps.google.com/?q=Srilakshmi+Mahal+Dindigul+Road+Trichy";
   const maduraiUrl = "https://maps.google.com/?q=VS+Chellam+Century+Hall+Madurai";
 
   const opts = { errorCorrectionLevel: 'M', margin: 2, width: 160,
@@ -11,10 +12,7 @@ async function main() {
   const trichyQR = await QRCode.toDataURL(trichyUrl, opts);
   const maduraiQR = await QRCode.toDataURL(maduraiUrl, opts);
 
-  console.log('TRICHY_QR=' + trichyQR.length + ' chars');
-  console.log('MADURAI_QR=' + maduraiQR.length + ' chars');
-
   fs.writeFileSync('qr_output.json', JSON.stringify({ trichyQR, maduraiQR }));
-  console.log('Written to qr_output.json');
+  console.log('Done');
 }
 main().catch(console.error);
