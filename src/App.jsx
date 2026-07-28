@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { Heart, MapPin, Clock, Calendar, Volume2, VolumeX, ChevronLeft, ChevronRight } from "lucide-react";
+import weddingMusic from "./assets/wedding-music.mp3";
 
 const FONT_IMPORT = `
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap');
@@ -186,11 +187,16 @@ function Envelope({ onOpen }) {
           {/* top flap — folded down (closed) */}
           <polygon points={`0,0 ${W},0 ${W/2},${H*0.48}`}
             fill="#F0E4CC" stroke="#C9942A" strokeWidth={0.8} />
-          {/* wax seal dot — plain circle in centre of top flap */}
-          <circle cx={W/2} cy={H*0.22} r={10}
-            fill="#A0352A" stroke="#D4A07A" strokeWidth={1.2} />
-          <circle cx={W/2} cy={H*0.22} r={5.5}
-            fill="none" stroke="#D4A07A" strokeWidth={0.7} opacity={0.7} />
+          {/* wax seal — gold circle at exact centre of envelope */}
+          <circle cx={W/2} cy={H/2} r={18}
+            fill="#B8860B" stroke="#E8C878" strokeWidth={1.5} />
+          <circle cx={W/2} cy={H/2} r={13}
+            fill="none" stroke="#E8C878" strokeWidth={0.8} opacity={0.7} />
+          <text x={W/2} y={H/2 + 5.5}
+            textAnchor="middle" fontFamily="'Cormorant Garamond', serif"
+            fontStyle="italic" fontWeight="600" fontSize="13" fill="#FBF0E4" letterSpacing="1">
+            PJ
+          </text>
         </svg>
       </motion.div>
       <p style={{
@@ -353,10 +359,27 @@ function PhotoSlider() {
 export default function WeddingInvite() {
   const [invited, setInvited] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const audioRef = useRef(null);
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({ container: containerRef });
   const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
   const countdown = useCountdown("2026-08-23T10:30:00");
+
+  useEffect(() => {
+    if (!audioRef.current) return;
+    if (isMuted) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play().catch(() => {});
+    }
+  }, [isMuted]);
+
+  useEffect(() => {
+    if (invited && audioRef.current) {
+      audioRef.current.play().catch(() => {});
+      setIsMuted(false);
+    }
+  }, [invited]);
 
   const GOLD = "#B8860B";
   const MAROON = "#7A1F3D";
@@ -365,6 +388,7 @@ export default function WeddingInvite() {
   return (
     <div style={{ fontFamily: "'Poppins', sans-serif", position: "relative" }}>
       <style>{FONT_IMPORT}</style>
+      <audio ref={audioRef} src={weddingMusic} loop preload="auto" />
       <AnimatePresence>{!invited && <Envelope onOpen={() => setInvited(true)} />}</AnimatePresence>
 
       <motion.div style={{
