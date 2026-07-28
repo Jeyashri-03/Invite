@@ -76,38 +76,43 @@ function KolamThread({ color }) {
   );
 }
 
-// Animated diamond kolam — echoes the traditional lattice motif from the
-// reference card, drawn dot-by-dot rather than shown as a static graphic.
-function KolamDiamond({ size = 64, color = "#E8C878" }) {
-  const pts = [];
-  const rings = 3;
-  for (let r = 1; r <= rings; r++) {
-    const n = r * 4;
-    for (let i = 0; i < n; i++) {
-      const angle = (Math.PI * 2 * i) / n;
-      const rx = r * 9 * Math.cos(angle);
-      const ry = r * 9 * Math.sin(angle);
-      pts.push([rx, ry, r]);
-    }
-  }
+function KolamDiamond({ size = 72, color = "#E8C878" }) {
+  // 5×5 dot grid kolam with traditional curved loop connectors
+  const s = 11; // dot spacing
+  const dots = [];
+  for (let r = 0; r < 5; r++)
+    for (let c = 0; c < 5; c++)
+      dots.push({ x: (c - 2) * s, y: (r - 2) * s, i: r * 5 + c });
+
   return (
-    <svg width={size} height={size} viewBox="-32 -32 64 64" style={{ overflow: "visible" }}>
-      {pts.map(([x, y, r], i) => (
-        <motion.circle
-          key={i} cx={x} cy={y} r={1.6}
-          fill="none" stroke={color} strokeWidth="1"
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 0.9, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 + r * 0.12 + i * 0.012 }}
-        />
-      ))}
+    <svg width={size} height={size} viewBox="-30 -30 60 60" style={{ overflow: "visible" }}>
+      {/* curved loop connectors between adjacent dots */}
       <motion.path
-        d="M0,-26 L26,0 L0,26 L-26,0 Z"
-        fill="none" stroke={color} strokeWidth="0.8" opacity="0.6"
-        initial={{ pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 0.6 }}
-        transition={{ duration: 1.4, delay: 0.3, ease: "easeInOut" }}
-      />
+        d="M-22,-22 Q0,-30 22,-22 Q30,0 22,22 Q0,30 -22,22 Q-30,0 -22,-22 Z"
+        fill="none" stroke={color} strokeWidth="0.7" opacity="0.45"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 1.6, delay: 0.2, ease: "easeInOut" }} />
+      <motion.path
+        d="M-11,-22 Q0,-26 11,-22 M22,-11 Q26,0 22,11 M11,22 Q0,26 -11,22 M-22,11 Q-26,0 -22,-11"
+        fill="none" stroke={color} strokeWidth="0.6" opacity="0.35"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 1.4, delay: 0.5, ease: "easeInOut" }} />
+      {/* inner diamond */}
+      <motion.path
+        d="M0,-15 L15,0 L0,15 L-15,0 Z"
+        fill="none" stroke={color} strokeWidth="0.7" opacity="0.5"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 1.2, delay: 0.7, ease: "easeInOut" }} />
+      {/* dots */}
+      {dots.map(({ x, y, i }) => (
+        <motion.circle key={i} cx={x} cy={y} r={1.5} fill={color}
+          initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 0.85, scale: 1 }}
+          transition={{ duration: 0.4, delay: 0.1 + i * 0.025 }} />
+      ))}
+      {/* centre dot accent */}
+      <motion.circle cx={0} cy={0} r={2.5} fill={color}
+        initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, delay: 0.8 }} />
     </svg>
   );
 }
@@ -402,12 +407,12 @@ export default function WeddingInvite() {
 
             <motion.div variants={fadeUp} initial="hidden" animate={invited ? "visible" : "hidden"} transition={{ delay: 0.35 }}
               style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 12.5, letterSpacing: 1.5, color: "#E8C878" }}>
-              ஆதி அந்தம் நீ — you are the beginning and the end
+              ஆதி நீ அந்தம் நீ — you are the beginning and the end
             </motion.div>
 
             <div>
               <motion.h1 variants={fadeUp} initial="hidden" animate={invited ? "visible" : "hidden"} transition={{ delay: 0.5 }}
-                style={{ fontFamily: "'Great Vibes', cursive", fontSize: 42, margin: "0 0 4px", color: "#F6E4B8" }}>
+                style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontStyle: "italic", fontSize: 38, margin: "0 0 4px", color: "#F6E4B8", letterSpacing: 2 }}>
                 Jeyashri &amp; Praveen
               </motion.h1>
             </div>
