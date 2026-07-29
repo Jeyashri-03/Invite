@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { Heart, MapPin, Clock, Calendar, Volume2, VolumeX, ChevronLeft, ChevronRight } from "lucide-react";
 // Set to "/wedding-music.mp3" after adding the file to the public/ folder
-const MUSIC_SRC = null;
+const MUSIC_SRC = "/wedding-music.mp3";
 
 const FONT_IMPORT = `
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap');
@@ -542,7 +542,7 @@ export default function WeddingInvite() {
 
           <EventCard label="The Wedding" tamilLabel="திருமணம்" city="Trichy"
             date="Sunday, 23 August 2026" time="10:30 AM · Muhurtham"
-            venue="Srilakshmi Mahal, Trichy" color={MAROON}
+            venue="Srilakshmi Mahal, Trichy" color={MAROON} mapsUrl="https://maps.google.com/?q=Srilakshmi+Mahal+Dindigul+Road+Trichy"
             note="The sacred moment — join us as we begin our journey together." />
           <KolamThread color={MAROON} />
 
