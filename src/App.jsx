@@ -278,7 +278,6 @@ function EventCard({ label, tamilLabel, date, time, venue, city, color, note, qr
           <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: 10, color: "#8a6a4a", letterSpacing: 1 }}>scan for directions</span>
         </div>
       )}
-      <RSVPButton color={color} />
       </div>
     </motion.div>
   );
