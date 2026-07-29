@@ -542,7 +542,7 @@ export default function WeddingInvite() {
 
           <EventCard label="The Wedding" tamilLabel="திருமணம்" city="Trichy"
             date="Sunday, 23 August 2026" time="10:30 AM · Muhurtham"
-            venue="Venue to be confirmed, Trichy" color={MAROON}
+            venue="Srilakshmi Mahal, Trichy" color={MAROON}
             note="The sacred moment — join us as we begin our journey together." />
           <KolamThread color={MAROON} />
 
