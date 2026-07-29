@@ -32,8 +32,6 @@ const SLIDER_PHOTOS = [
 ];
 
 const RSVP_FORM = "https://forms.gle/1tNybauRM73rD9HAA";
-const TRICHY_QR = "data:image/png;base64,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";
-const MADURAI_QR = "data:image/png;base64,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";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -242,7 +240,7 @@ function RSVPButton({ color }) {
   );
 }
 
-function EventCard({ label, tamilLabel, date, time, venue, city, color, note, qrCode }) {
+function EventCard({ label, tamilLabel, date, time, venue, city, color, note, mapsUrl }) {
   return (
     <motion.div
       variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}
@@ -271,12 +269,15 @@ function EventCard({ label, tamilLabel, date, time, venue, city, color, note, qr
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}><MapPin size={15} color={color} /> {venue}</div>
       </div>
       {note && <div style={{ marginTop: 14, fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 14, color: "#8a5a3a" }}>{note}</div>}
-      {qrCode && (
-        <div style={{ marginTop: 16, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-          <img src={qrCode} alt={`Directions to ${venue}`}
-            style={{ width: 100, height: 100, borderRadius: 8, border: `1.5px solid ${color}`, display: "block" }} />
-          <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: 10, color: "#8a6a4a", letterSpacing: 1 }}>scan for directions</span>
-        </div>
+      {mapsUrl && (
+        <a href={mapsUrl} target="_blank" rel="noreferrer"
+          style={{
+            marginTop: 14, display: "inline-flex", alignItems: "center", gap: 6,
+            fontFamily: "'Poppins', sans-serif", fontSize: 12, color, textDecoration: "none",
+            borderBottom: `1px solid ${color}`, paddingBottom: 1, letterSpacing: 0.3,
+          }}>
+          <MapPin size={13} color={color} /> Get Directions
+        </a>
       )}
       </div>
     </motion.div>
@@ -535,7 +536,7 @@ export default function WeddingInvite() {
 
           <EventCard label="Engagement" tamilLabel="நிச்சயதார்த்தம்" city="Trichy"
             date="Saturday, 22 August 2026" time="6:00 PM onwards · Ring exchange + DJ night"
-            venue="Srilakshmi Mahal, Trichy" color={GOLD} qrCode={TRICHY_QR}
+            venue="Srilakshmi Mahal, Trichy" color={GOLD} mapsUrl="https://maps.google.com/?q=Srilakshmi+Mahal+Dindigul+Road+Trichy"
             note="Where Praveen's family welcomes Jeyashri home for the first celebration — dance floor open till late." />
           <KolamThread color={GOLD} />
 
@@ -547,7 +548,7 @@ export default function WeddingInvite() {
 
           <EventCard label="Reception" tamilLabel="வரவேற்பு" city="Madurai"
             date="Wednesday, 26 August 2026" time="6:00 PM onwards"
-            venue="VS Chellam Century Hall, Madurai" color={JADE} qrCode={MADURAI_QR}
+            venue="VS Chellam Century Hall, Madurai" color={JADE} mapsUrl="https://maps.google.com/?q=VS+Chellam+Century+Hall+Madurai"
             note="Jeyashri's hometown hosts the last toast — come celebrate with us under the Madurai sky." />
         </section>
 
